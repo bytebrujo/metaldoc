@@ -1,5 +1,7 @@
 # metaldoc
 
+<https://github.com/bytebrujo/metaldoc>
+
 A local, deterministic command-line symbol resolver for Apple Metal — built
 metal-cpp-first for C++/Zig developers, with MSL shader lookup and Objective-C
 enrichment. It reflects the *installed* toolchain and the *project's actual*
