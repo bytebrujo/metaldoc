@@ -1,6 +1,10 @@
-# metaldoc
+<p align="center">
+  <img src="assets/metaldoc-logo.png" alt="metaldoc logo" width="180">
+</p>
 
-<https://github.com/bytebrujo/metaldoc>
+<h1 align="center">metaldoc</h1>
+
+<p align="center"><a href="https://github.com/bytebrujo/metaldoc">github.com/bytebrujo/metaldoc</a></p>
 
 A local, deterministic command-line symbol resolver for Apple Metal — built
 metal-cpp-first for C++/Zig developers, with MSL shader lookup and Objective-C
