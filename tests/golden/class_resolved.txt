@@ -1,0 +1,6 @@
+MTL::CommandQueue
+
+Kind:       C++ class
+Declared:   Metal/MTLCommandQueue.hpp:31
+Symbol ID:  cpp:class/MTL::CommandQueue
+Provenance: metal-cpp

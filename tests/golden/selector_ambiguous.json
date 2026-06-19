@@ -1,0 +1,78 @@
+{
+  "query": "newBufferWithLength:options:",
+  "status": "ambiguous",
+  "context": {
+    "developerDir": "/FIXED/Xcode.app/Contents/Developer",
+    "sdkName": "macosx",
+    "sdkVersion": "27.0",
+    "metalCppRoot": "/FIXED/metal_cpp",
+    "metalToolchain": "32023",
+    "schemaVersion": 2
+  },
+  "candidates": [
+    {
+      "id": "cpp:class/MTL::Device/method/newBuffer(NS::UInteger,MTL::ResourceOptions)",
+      "surface": "host-api",
+      "kind": "cpp.method",
+      "owner": {
+        "kind": "class",
+        "name": "MTL::Device"
+      },
+      "signature": "MTL::Buffer * newBuffer(NS::UInteger length, MTL::ResourceOptions options)",
+      "selector": "newBufferWithLength:options:",
+      "source": {
+        "path": "Metal/MTLDevice.hpp",
+        "line": 923
+      },
+      "ownership": "owned",
+      "availability": [],
+      "aliases": [
+        {
+          "language": "cpp",
+          "name": "MTL::Device::newBuffer",
+          "provenance": "metal-cpp"
+        },
+        {
+          "language": "objc",
+          "name": "newBufferWithLength:options:",
+          "provenance": "metal-cpp"
+        }
+      ],
+      "provenance": [
+        "metal-cpp"
+      ]
+    },
+    {
+      "id": "cpp:class/MTL::Heap/method/newBuffer(NS::UInteger,MTL::ResourceOptions)",
+      "surface": "host-api",
+      "kind": "cpp.method",
+      "owner": {
+        "kind": "class",
+        "name": "MTL::Heap"
+      },
+      "signature": "MTL::Buffer * newBuffer(NS::UInteger length, MTL::ResourceOptions options)",
+      "selector": "newBufferWithLength:options:",
+      "source": {
+        "path": "Metal/MTLHeap.hpp",
+        "line": 273
+      },
+      "ownership": "owned",
+      "availability": [],
+      "aliases": [
+        {
+          "language": "cpp",
+          "name": "MTL::Heap::newBuffer",
+          "provenance": "metal-cpp"
+        },
+        {
+          "language": "objc",
+          "name": "newBufferWithLength:options:",
+          "provenance": "metal-cpp"
+        }
+      ],
+      "provenance": [
+        "metal-cpp"
+      ]
+    }
+  ]
+}

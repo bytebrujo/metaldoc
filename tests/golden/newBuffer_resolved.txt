@@ -1,0 +1,9 @@
+MTL::Device::newBuffer(NS::UInteger length, MTL::ResourceOptions options)
+
+Kind:       Instance method on MTL::Device
+Signature:  MTL::Buffer * newBuffer(NS::UInteger length, MTL::ResourceOptions options)
+Selector:   newBufferWithLength:options:
+Ownership:  owned (+1) — release it or wrap in NS::SharedPtr (NS::TransferPtr)
+Declared:   Metal/MTLDevice.hpp:923
+Symbol ID:  cpp:class/MTL::Device/method/newBuffer(NS::UInteger,MTL::ResourceOptions)
+Provenance: metal-cpp

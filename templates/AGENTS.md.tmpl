@@ -1,0 +1,112 @@
+# AGENTS.md
+
+> Written by `metaldoc init`. This is the canonical agent guidance file; if your
+> tool reads `CLAUDE.md`, symlink or copy it from here.
+
+## Metal Development
+
+Use `metaldoc` to discover exact, current Metal APIs **before** writing code. Do
+not guess signatures, selectors, or MSL builtins — they vary by SDK version and
+Metal toolchain, and `metaldoc` reflects the ones actually installed here.
+
+```bash
+metaldoc lookup MTL::Device::newBuffer        # C++ name
+metaldoc lookup newBufferWithLength:options:  # by ObjC selector
+metaldoc msl thread_position_in_grid          # MSL builtin
+metaldoc search texture --format json         # discovery
+```
+
+Prefer `--format json` when you need structured fields. Every result carries:
+
+- `signature` — exact C++ declaration
+- `overloads` — all overloads of the symbol
+- `selector` — the Objective-C selector (cross-language join key)
+- `ownership` — `owned` (+1, you must release) or `borrowed` (do not release)
+- `source` — `path:line` in the project's actual metal-cpp headers
+- `availability` / `doc` — when ObjC enrichment is indexed
+
+If a query is ambiguous, `metaldoc` returns candidate symbol IDs and a non-zero
+exit code. Re-run with a candidate ID or an owner-qualified name; do not pick one
+at random.
+
+## metal-cpp Memory Ownership (READ FIRST)
+
+This is the most common source of Metal bugs. metal-cpp follows Cocoa's
+Create/Get naming rules. When in doubt, check the `ownership` field from
+`metaldoc lookup`.
+
+- Methods named `new*`, `alloc*`, `copy*`, `mutableCopy*`, or `*Create*` return
+  an **owned (+1)** object. You must release it, or wrap it in a smart pointer.
+- **All other** methods return a **borrowed (autoreleased)** object. Do **not**
+  release it. Call `->retain()` only if you must keep it past the current scope.
+
+Prefer `NS::SharedPtr` over manual `retain`/`release`:
+
+```cpp
+#include <Metal/Metal.hpp>
+
+// +1 owned  -> TransferPtr takes ownership of the existing +1 reference
+NS::SharedPtr<MTL::Buffer> buffer =
+    NS::TransferPtr(device->newBuffer(length, MTL::ResourceStorageModeShared));
+
+// +0 borrowed -> RetainPtr adds a reference you are responsible for
+NS::SharedPtr<MTL::Device> dev = NS::RetainPtr(MTL::CreateSystemDefaultDevice());
+```
+
+Scope per-frame transient objects in an autorelease pool:
+
+```cpp
+NS::SharedPtr<NS::AutoreleasePool> pool = NS::TransferPtr(NS::AutoreleasePool::alloc()->init());
+// ... create command buffers, encoders, drawables ...
+// pool drains when it goes out of scope
+```
+
+Manual form (only when you cannot use `NS::SharedPtr`):
+
+```cpp
+MTL::CommandQueue* queue = device->newCommandQueue(); // +1 owned
+// ... use queue ...
+queue->release();                                     // required
+```
+
+## Errors
+
+Metal reports errors through `NS::Error**` out-parameters. A null return value
+means failure; inspect the error before continuing.
+
+```cpp
+NS::Error* error = nullptr;
+NS::SharedPtr<MTL::Library> library = NS::TransferPtr(
+    device->newLibrary(source, /*options=*/nullptr, &error));
+
+if (!library) {
+    const char* msg = error ? error->localizedDescription()->utf8String()
+                            : "unknown error";
+    // handle compilation/runtime failure using `msg`
+}
+```
+
+## MSL (shaders)
+
+MSL is the GPU-side language, not the host API. Look up address spaces, entry
+qualifiers, resource bindings, and built-in attributes:
+
+```bash
+metaldoc msl device                      # address space
+metaldoc msl kernel                      # entry qualifier
+metaldoc msl '[[buffer(n)]]'             # resource binding
+metaldoc msl '[[thread_position_in_grid]]'
+metaldoc msl metal::dot                  # stdlib function
+```
+
+Do not assume an MSL function exists or has a given overload — confirm with
+`metaldoc msl` first, since the MSL standard library tracks the installed Metal
+toolchain version.
+
+## Workflow
+
+1. Before calling any Metal API, run `metaldoc lookup` (host) or `metaldoc msl`
+   (shader) to confirm the exact name, signature, and ownership.
+2. Wrap owned objects in `NS::SharedPtr` at the point of creation.
+3. Check `NS::Error**` out-parameters and null returns.
+4. Re-run `metaldoc` rather than relying on memory of older Metal versions.

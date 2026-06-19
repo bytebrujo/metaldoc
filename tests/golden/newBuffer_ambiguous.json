@@ -1,0 +1,110 @@
+{
+  "query": "MTL::Device::newBuffer",
+  "status": "ambiguous",
+  "context": {
+    "developerDir": "/FIXED/Xcode.app/Contents/Developer",
+    "sdkName": "macosx",
+    "sdkVersion": "27.0",
+    "metalCppRoot": "/FIXED/metal_cpp",
+    "metalToolchain": "32023",
+    "schemaVersion": 2
+  },
+  "candidates": [
+    {
+      "id": "cpp:class/MTL::Device/method/newBuffer(NS::UInteger,MTL::ResourceOptions)",
+      "surface": "host-api",
+      "kind": "cpp.method",
+      "owner": {
+        "kind": "class",
+        "name": "MTL::Device"
+      },
+      "signature": "MTL::Buffer * newBuffer(NS::UInteger length, MTL::ResourceOptions options)",
+      "selector": "newBufferWithLength:options:",
+      "source": {
+        "path": "Metal/MTLDevice.hpp",
+        "line": 923
+      },
+      "ownership": "owned",
+      "availability": [],
+      "aliases": [
+        {
+          "language": "cpp",
+          "name": "MTL::Device::newBuffer",
+          "provenance": "metal-cpp"
+        },
+        {
+          "language": "objc",
+          "name": "newBufferWithLength:options:",
+          "provenance": "metal-cpp"
+        }
+      ],
+      "provenance": [
+        "metal-cpp"
+      ]
+    },
+    {
+      "id": "cpp:class/MTL::Device/method/newBuffer(const void *,NS::UInteger,MTL::ResourceOptions)",
+      "surface": "host-api",
+      "kind": "cpp.method",
+      "owner": {
+        "kind": "class",
+        "name": "MTL::Device"
+      },
+      "signature": "MTL::Buffer * newBuffer(const void * pointer, NS::UInteger length, MTL::ResourceOptions options)",
+      "selector": "newBufferWithBytes:length:options:",
+      "source": {
+        "path": "Metal/MTLDevice.hpp",
+        "line": 929
+      },
+      "ownership": "owned",
+      "availability": [],
+      "aliases": [
+        {
+          "language": "cpp",
+          "name": "MTL::Device::newBuffer",
+          "provenance": "metal-cpp"
+        },
+        {
+          "language": "objc",
+          "name": "newBufferWithBytes:length:options:",
+          "provenance": "metal-cpp"
+        }
+      ],
+      "provenance": [
+        "metal-cpp"
+      ]
+    },
+    {
+      "id": "cpp:class/MTL::Device/method/newBuffer(const void *,NS::UInteger,MTL::ResourceOptions,void (^)(void *, NS::UInteger))",
+      "surface": "host-api",
+      "kind": "cpp.method",
+      "owner": {
+        "kind": "class",
+        "name": "MTL::Device"
+      },
+      "signature": "MTL::Buffer * newBuffer(const void * pointer, NS::UInteger length, MTL::ResourceOptions options, void (^)(void *, NS::UInteger) deallocator)",
+      "selector": "newBufferWithBytesNoCopy:length:options:deallocator:",
+      "source": {
+        "path": "Metal/MTLDevice.hpp",
+        "line": 935
+      },
+      "ownership": "owned",
+      "availability": [],
+      "aliases": [
+        {
+          "language": "cpp",
+          "name": "MTL::Device::newBuffer",
+          "provenance": "metal-cpp"
+        },
+        {
+          "language": "objc",
+          "name": "newBufferWithBytesNoCopy:length:options:deallocator:",
+          "provenance": "metal-cpp"
+        }
+      ],
+      "provenance": [
+        "metal-cpp"
+      ]
+    }
+  ]
+}

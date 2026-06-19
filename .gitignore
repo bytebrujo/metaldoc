@@ -1,0 +1,7 @@
+.DS_Store
+.zig-cache/
+zig-out/
+
+# generated spike artifacts (reproducible via spike/msl/probe.sh)
+spike/msl/*_ast.json
+spike/msl/stdlib_only.metal
